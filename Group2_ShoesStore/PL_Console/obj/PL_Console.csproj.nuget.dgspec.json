@@ -1,0 +1,58 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\DMX xuan\\Desktop\\Group2_ShoesStore\\PL_Console\\PL_Console.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\DMX xuan\\Desktop\\Group2_ShoesStore\\PL_Console\\PL_Console.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\DMX xuan\\Desktop\\Group2_ShoesStore\\PL_Console\\PL_Console.csproj",
+        "projectName": "PL_Console",
+        "projectPath": "C:\\Users\\DMX xuan\\Desktop\\Group2_ShoesStore\\PL_Console\\PL_Console.csproj",
+        "packagesPath": "C:\\Users\\DMX xuan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\DMX xuan\\Desktop\\Group2_ShoesStore\\PL_Console\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\DMX xuan\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}
