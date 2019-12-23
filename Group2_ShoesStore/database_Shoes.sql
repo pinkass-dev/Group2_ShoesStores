@@ -10,8 +10,10 @@ customer_name varchar(50),
 customer_phone varchar(15),
 customer_birthday date ,
 customer_gender varchar(10) ,
-customer_address varchar(100) 
+customer_address varchar(100),
+constraint uq_Customers_email unique(customer_email)
 );
+
 insert into Customers(customer_account,customer_password,customer_name, customer_email)
 value 
 ('xuan','pinkass','le ngoc xuan','lexuanxdts@gmail.com'),
