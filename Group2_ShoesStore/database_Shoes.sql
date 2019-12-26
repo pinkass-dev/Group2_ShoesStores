@@ -3,12 +3,12 @@ create database if not exists ShoesStore;
 use ShoesStore;
 create table if not exists Customers(
 customer_id int primary key auto_increment,
-customer_account varchar(50) not null,
+customer_account varchar(50) not null unique,
 customer_password varchar(50) not null,
-customer_email varchar(50) not null,
+customer_email varchar(50) not null unique,
 customer_name varchar(50),
 customer_phone varchar(15),
-customer_birthday date ,
+customer_birthday date,
 customer_gender varchar(10) ,
 customer_address varchar(100),
 constraint uq_Customers_email unique(customer_email)
@@ -30,7 +30,7 @@ constraint fk_Orders_Customers foreign key(order_customer) references Customers(
 
 
 create table if not exists Items(
-item_id int primary key auto_increment,
+item_id int primary key,
 item_name varchar(100) not null,
 item_price float not null,
 item_quantity int not null,
@@ -142,6 +142,17 @@ value
 ('Engine','460000','5','42','black','fabric','vans');
 
 select * from Items;
+create table ItemDetails if not exists(
+item_id int primary key,
+item_size int not null,
+item_quantity int not null,
+constraint fk_itemdetails_items foreign key (item_id) references Items(item_id)
+);
+
+insert into ItemDetails (item_id,item_size,item_quantity)
+value
+('1','42','4')
+
 
 select order_id from orders where order_customer = 2 order by order_id  desc limit 1 ;
 create table if not exists Orderdetails(
