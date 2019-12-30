@@ -30,14 +30,14 @@ constraint fk_Orders_Customers foreign key(order_customer) references Customers(
 
 
 create table if not exists Items(
-item_id int primary key,
+item_id int primary key auto_increment,
 item_name varchar(100) not null,
 item_price float not null,
 item_quantity int not null,
 item_size int not null,
 item_color varchar(20),
-item_material nvarchar(50),
-item_trademark nvarchar(50)
+item_material varchar(20),
+item_trademark nvarchar(20)
 );
 insert into Items(item_name,item_price,item_quantity,item_size,item_color,item_material,item_trademark)
 value
@@ -142,7 +142,7 @@ value
 ('Engine','460000','5','42','black','fabric','vans');
 
 select * from Items;
-create table ItemDetails if not exists(
+create table  if not exists ItemDetails(
 item_id int primary key,
 item_size int not null,
 item_quantity int not null,
@@ -151,7 +151,7 @@ constraint fk_itemdetails_items foreign key (item_id) references Items(item_id)
 
 insert into ItemDetails (item_id,item_size,item_quantity)
 value
-('1','42','4')
+('1','42','4');
 
 
 select order_id from orders where order_customer = 2 order by order_id  desc limit 1 ;

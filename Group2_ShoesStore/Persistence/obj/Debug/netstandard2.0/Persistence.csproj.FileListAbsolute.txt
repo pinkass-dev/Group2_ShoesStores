@@ -1,0 +1,9 @@
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\Persistence\bin\Debug\netstandard2.0\Persistence.deps.json
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\Persistence\bin\Debug\netstandard2.0\Persistence.dll
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\Persistence\bin\Debug\netstandard2.0\Persistence.pdb
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\Persistence\obj\Debug\netstandard2.0\Persistence.csprojAssemblyReference.cache
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\Persistence\obj\Debug\netstandard2.0\Persistence.csproj.CoreCompileInputs.cache
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\Persistence\obj\Debug\netstandard2.0\Persistence.AssemblyInfoInputs.cache
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\Persistence\obj\Debug\netstandard2.0\Persistence.AssemblyInfo.cs
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\Persistence\obj\Debug\netstandard2.0\Persistence.dll
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\Persistence\obj\Debug\netstandard2.0\Persistence.pdb

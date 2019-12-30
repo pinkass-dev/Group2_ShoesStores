@@ -1,0 +1,14 @@
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\BL\bin\Debug\netstandard2.0\BL.deps.json
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\BL\bin\Debug\netstandard2.0\BL.dll
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\BL\bin\Debug\netstandard2.0\BL.pdb
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\BL\bin\Debug\netstandard2.0\DAL.dll
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\BL\bin\Debug\netstandard2.0\Persistence.dll
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\BL\bin\Debug\netstandard2.0\DAL.pdb
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\BL\bin\Debug\netstandard2.0\Persistence.pdb
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\BL\obj\Debug\netstandard2.0\BL.csprojAssemblyReference.cache
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\BL\obj\Debug\netstandard2.0\BL.csproj.CoreCompileInputs.cache
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\BL\obj\Debug\netstandard2.0\BL.AssemblyInfoInputs.cache
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\BL\obj\Debug\netstandard2.0\BL.AssemblyInfo.cs
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\BL\obj\Debug\netstandard2.0\BL.csproj.CopyComplete
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\BL\obj\Debug\netstandard2.0\BL.dll
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\BL\obj\Debug\netstandard2.0\BL.pdb

@@ -4,6 +4,10 @@
     <ProjectReference Include="..\Persistence\Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MySql.data" Version="8.0.18" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
