@@ -35,7 +35,9 @@ namespace PL_Console
             // // }
 
             ShoesBL shoesBL = new ShoesBL();
-            List<Shoes> listshoes = shoesBL.GetListShoes();
+            List<Shoes> listshoes = null;
+            // List<Shoes> listshoes = shoesBL.GetListShoes();
+            listshoes = shoesBL.GetListShoes();
             var table = new ConsoleTable("ShoesID", "Name", "Price", "Quantity", "Size", "Color", "Material", "Brand");
             foreach (var item in listshoes)
             {
