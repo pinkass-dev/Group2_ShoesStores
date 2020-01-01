@@ -10,6 +10,8 @@ namespace PL_Console
     {
         static void Main(string[] args)
         {
+            Menu menu = new Menu();
+            menu.Program();
             // // public void ShowShoesDetails()
             // // {
             // string ShoesName;
@@ -34,17 +36,16 @@ namespace PL_Console
 
             // // }
 
-            ShoesBL shoesBL = new ShoesBL();
-            List<Shoes> listshoes = null;
-            // List<Shoes> listshoes = shoesBL.GetListShoes();
-            listshoes = shoesBL.GetListShoes();
-            var table = new ConsoleTable("ShoesID", "Name", "Price", "Quantity", "Size", "Color", "Material", "Brand");
-            foreach (var item in listshoes)
-            {
-                table.AddRow(item.ShoesId, item.ShoesName, item.ShoesPrice, item.ShoesQuantity, item.ShoesSize, item.ShoesColor, item.ShoesMaterial, item.ShoesBrand);
+            // ShoesBL shoesBL = new ShoesBL();
+            // List<Shoes> listshoes = null;
+            // listshoes = shoesBL.GetListShoes();
+            // var table = new ConsoleTable("ShoesID", "Name", "Price", "Quantity", "Size", "Color", "Material", "Brand");
+            // foreach (var item in listshoes)
+            // {
+            //     table.AddRow(item.ShoesId, item.ShoesName, item.ShoesPrice, item.ShoesQuantity, item.ShoesSize, item.ShoesColor, item.ShoesMaterial, item.ShoesBrand);
 
-            }
-            table.Write(Format.Alternative);
+            // }
+            // table.Write(Format.Alternative);
         }
     }
 }

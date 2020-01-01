@@ -1,0 +1,1 @@
+server=localhost;user id=root;password=Lnx846061;port=3306;database=shoesstore;SslMode=None;Charset=utf8;

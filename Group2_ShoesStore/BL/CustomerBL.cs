@@ -30,6 +30,10 @@ namespace BL
         {
             return customerDAL.GetCustomerByID(UserID);
         }
+         public bool UpdateStatusShoppingCartById(bool isHave, int? userId)
+        {
+            return customerDAL.UpdateStatusShoppingCartById(isHave, userId);
+        }
 
     }
     

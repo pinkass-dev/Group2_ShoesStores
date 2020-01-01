@@ -16,3 +16,4 @@ C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\PL_Console\obj\De
 C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\PL_Console\obj\Debug\netcoreapp2.2\PL_Console.csproj.CopyComplete
 C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\PL_Console\obj\Debug\netcoreapp2.2\PL_Console.dll
 C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\PL_Console\obj\Debug\netcoreapp2.2\PL_Console.pdb
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\PL_Console\bin\Debug\netcoreapp2.2\ConnectionString.txt

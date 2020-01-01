@@ -12,3 +12,4 @@ C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\BL\obj\Debug\nets
 C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\BL\obj\Debug\netstandard2.0\BL.csproj.CopyComplete
 C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\BL\obj\Debug\netstandard2.0\BL.dll
 C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\BL\obj\Debug\netstandard2.0\BL.pdb
+C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\BL\bin\Debug\netstandard2.0\ConnectionString.txt
