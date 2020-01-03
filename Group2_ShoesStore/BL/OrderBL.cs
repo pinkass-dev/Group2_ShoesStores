@@ -61,11 +61,11 @@ namespace BL
 
             return orderDAL.DeleteAllItemInShoppingCartByUserID(UserID);
         }
-        public int? CheckItemPurchase(int? itemId, int? userId)
-        {
+        // public int? CheckItemPurchase(int? itemId, int? userId)
+        // {
 
-            return orderDAL.CheckItemPurchase(itemId, userId);
-        }
+        //     return orderDAL.CheckItemPurchase(itemId, userId);
+        // }
     }
 
 }

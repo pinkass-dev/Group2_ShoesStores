@@ -30,9 +30,17 @@ namespace BL
         {
             return customerDAL.GetCustomerByID(UserID);
         }
-         public bool UpdateStatusShoppingCartById(bool isHave, int? userId)
+         public bool UpdateStatusShoppingCartById(bool isHave, int? UserID)
         {
-            return customerDAL.UpdateStatusShoppingCartById(isHave, userId);
+            return customerDAL.UpdateStatusShoppingCartById(isHave, UserID);
+        }
+        public int VerifyRegister(string Username, string Email)
+        {
+            return customerDAL.VerifyRegister(Username,Email);
+        }
+        public int Register(string Username, string Password, string Name, string Email, string Phone, string Birthday, string Gender, string Address)
+        {
+           return customerDAL.Register(Username, Password,  Name, Email, Phone,  Birthday, Gender, Address);
         }
 
     }

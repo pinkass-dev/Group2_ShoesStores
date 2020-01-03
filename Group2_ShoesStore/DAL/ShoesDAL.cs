@@ -9,24 +9,10 @@ namespace DAL
     {
         private string query;
         private MySqlDataReader reader;
-        // public Shoes GetShoesByName(string ShoesName)
-        // {
-        //     query = @"select item_name, item_size, item_price, item_color,
-        //      item_quantity,item_material, item_trademark
-        //     from Items where item_name ='" + ShoesName + "';";
-        //     DBHelper.OpenConnection();
-        //     reader = DBHelper.ExecQuery(query);
-        //     Shoes shoes = null;
-        //     if (reader.Read())
-        //     {
-        //         shoes = GetShoesInfo(reader);
-        //     }
-        //     DBHelper.CloseConnection();
-        //     return shoes;
-        // }
+        
 public List<Shoes> SearchShoesName()
 {
-    query = @"select * from Items;";
+    query = @"select it.item_id,it.item_name,itd.item_size,it.item_price,it.item_color,it.item_material,it.item_trademark,itd.item_quantity from items it, itemdetails itd where it.item_id = itd.item_id;";
     List<Shoes> shoes = new List<Shoes>();
     
     try
@@ -51,8 +37,8 @@ public List<Shoes> SearchShoesName()
         
         public List<Shoes> GetListShoes()
         {
-            
-            query = @"select it.item_id,it.item_name,it.item_price,it.item_color,it.item_material,it.item_trademark,itd.item_size,itd.item_quantity from items it, itemdetails itd where it.item_id = itd.item_id;";
+            DBHelper.OpenConnection();
+            query = $@"select it.item_id,it.item_name,it.item_price,it.item_color,it.item_material,it.item_trademark,itd.item_size,itd.item_quantity from items it, itemdetails itd where it.item_id = itd.item_id limit 10;";
             List<Shoes> shoes = new List<Shoes>();
             try
             {
@@ -63,7 +49,7 @@ public List<Shoes> SearchShoesName()
                 Console.WriteLine("Can not connect database!");
                 return null;
             }
-            if (reader.Read())
+            while (reader.Read())
             {
                 shoes.Add(GetShoesInfo(reader));
             }
@@ -71,14 +57,14 @@ public List<Shoes> SearchShoesName()
             DBHelper.CloseConnection();
             return shoes;
         }
-        public Shoes GetShoesById(int? ShoesId)
+        public Shoes GetShoesById(int? itemId)
         {
-            if (ShoesId == null)
+            if (itemId == null)
             {
                 return null;
             }
             
-            query = $"select * from Items where item_id = {ShoesId}";
+            query = $@"select it.item_id,it.item_name,itd.item_size,it.item_price,it.item_color,it.item_material,it.item_trademark,itd.item_quantity from Items it, Itemdetails itd where it.item_id = "+ itemId+";";
             reader = DBHelper.ExecQuery(query,DBHelper.OpenConnection());
             Shoes shoes = null;
             if (reader.Read())
@@ -95,7 +81,7 @@ public List<Shoes> SearchShoesName()
             switch (temp)
             {
                 case 1:
-                query = $"select * from Items where item_id = ";
+                query = $@"select it.item_id,it.item_name,itd.item_size,it.item_price,it.item_color,it.item_material,it.item_brand,itd.item_quantity from Items it, Itemdetails itd where item_id = ";
                 break;
             }
             reader = DBHelper.ExecQuery(query,DBHelper.OpenConnection());
@@ -111,13 +97,14 @@ public List<Shoes> SearchShoesName()
         private Shoes GetShoesInfo(MySqlDataReader reader)
         {
             Shoes shoes = new Shoes();
+            shoes.ShoesId = reader.GetInt32("item_id");
             shoes.ShoesName = reader.GetString("item_name");
-            shoes.ShoesPrice = reader.GetInt32("item_price");
-            shoes.ShoesQuantity = reader.GetInt32("item_quantity");
             shoes.ShoesSize = reader.GetInt32("item_size");
+            shoes.ShoesPrice = reader.GetInt32("item_price");
             shoes.ShoesColor = reader.GetString("item_color");
             shoes.ShoesMaterial = reader.GetString("item_material");
             shoes.ShoesBrand = reader.GetString("item_trademark");
+            shoes.ShoesQuantity = reader.GetInt32("item_quantity");
             return shoes;
         }
 

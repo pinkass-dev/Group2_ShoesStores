@@ -27,8 +27,8 @@ namespace DAL
             query = $@"select * from Customers where customer_account = '{username}' and customer_password = '{password}'";
             try
             {
-                
-                reader = DBHelper.ExecQuery(query,DBHelper.OpenConnection() );
+
+                reader = DBHelper.ExecQuery(query, DBHelper.OpenConnection());
             }
             catch (System.Exception)
             {
@@ -53,9 +53,9 @@ namespace DAL
             {
                 return null;
             }
-            query = $@"select * from Customers where customer_id = {UserID};";
-            
-            reader = DBHelper.ExecQuery(query,DBHelper.OpenConnection());
+            query = $@"select * from Customers where customer_id = " + UserID + ";";
+
+            reader = DBHelper.ExecQuery(query, DBHelper.OpenConnection());
             Customer cus = null;
             if (reader.Read())
             {
@@ -65,20 +65,23 @@ namespace DAL
             DBHelper.CloseConnection();
             return cus;
         }
-        public bool UpdateStatusShoppingCartById(bool isHave, int? userId)
+        public bool UpdateStatusShoppingCartById(bool isHave, int? UserID)
         {
 
-            if (userId == null)
+            if (UserID == null)
             {
                 return false;
             }
+
             switch (isHave)
             {
                 case true:
-                    query = $@"update Customers set UserShoppingCart = false where customer_id = {userId}";
+                    //Console.WriteLine(userId);
+                    query = @"update Customers set UserShoppingCart = false where customer_id = " + UserID + ";";
+                    Console.WriteLine(query);
                     break;
                 case false:
-                    query = $@"update Customers set UserShoppingCart = true where customer_id = {userId}";
+                    query = @"update Customers set UserShoppingCart = true where customer_id = " + UserID + ";";
                     break;
             }
 
@@ -100,6 +103,58 @@ namespace DAL
             cus.UserGender = reader.GetString("customer_gender");
             cus.UserBirthDay = reader.GetString("customer_birthday");
             return cus;
+        }
+        public int VerifyRegister(string Username, string Email)
+        {
+            int a;
+            MySqlConnection connection = DBHelper.OpenConnection();
+            query = @"Select * from Customers where customer_account = '" + Username + "' or customer_email ='" + Email + "';";
+            MySqlCommand command = new MySqlCommand(query,connection);
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                System.Console.WriteLine("Account or email already exists");
+                a = 1;
+            }
+            else
+            {
+                System.Console.WriteLine("Registration successful");
+                a = 2;
+            }
+            reader.Close();
+            DBHelper.CloseConnection();
+            return a;
+        }
+        public int Register(string Username, string Password, string Name, string Email, string Phone, string Birthday, string Gender, string Address)
+        {
+            // MySqlConnection connection = DBHelper.OpenConnection();
+            // MySqlCommand command = connection.CreateCommand();
+            try
+            {
+                MySqlConnection connection = DBHelper.OpenConnection();
+                // DBHelper.OpenConnection();
+                query = @"insert into Customers(customer_account,customer_password,customer_name, customer_email,customer_phone,customer_birthday,customer_gender,customer_address) values ('"+Username+"','"+Password+"','"+Name+"','"+Email+"','"+Phone+"','"+Birthday+"','"+Gender+"','"+Address+"');";
+                // query = @"insert into Customers(customer_account,customer_password,customer_name, customer_email,customer_phone,customer_birthday,customer_gender,customer_address) values (@Username,@Password,@Email,@Phone,@Birthday,@Gender,@Address);";
+                // command.Parameters.AddWithValue("@Username",Username);
+                // command.Parameters.AddWithValue("@Password",Password);
+                // command.Parameters.AddWithValue("@Email",Email);
+                // command.Parameters.AddWithValue("@Phone",Phone);
+                // command.Parameters.AddWithValue("@Birthday",Birthday);
+                // command.Parameters.AddWithValue("@Gender",Gender);
+                // command.Parameters.AddWithValue("@Address",Address);
+                // MySqlCommand command = connection.CreateCommand();
+                MySqlCommand command = new MySqlCommand(query,connection);
+                command.ExecuteNonQuery();
+            }
+            catch
+            {
+                Console.WriteLine("could not be registered!");
+            }
+            finally
+            {
+                DBHelper.CloseConnection();
+            }
+            return 1;
         }
     }
 

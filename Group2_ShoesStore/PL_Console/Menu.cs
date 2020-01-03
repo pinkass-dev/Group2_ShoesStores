@@ -13,7 +13,7 @@ namespace PL_Console
             while (true)
             {
 
-                string[] choice = { "Login", "Exit" };
+                string[] choice = { "Login", "Sign Up", "Exit" };
                 // short choose = Mainmenu("EBook Store", choice);
                 short choose = Utility.MenuTemplate("Shoes Stores", choice);
                 switch (choose)
@@ -22,7 +22,9 @@ namespace PL_Console
                         MenuLogin();
                         continue;
                     case 2:
-                        
+                        MenuSignUp();
+                        continue;
+                    case 3:
                         string yOrN = Utility.OnlyYN("Do you want to exit?(Y/N): ");
                         if (yOrN == "Y")
                         {
@@ -34,6 +36,78 @@ namespace PL_Console
                 }
             }
 
+        }
+        public void MenuSignUp()
+        {
+            CustomerBL customerBL = new CustomerBL();
+            string Username = null;
+            string Password = null;
+            string Name = null;
+            string Email = null;
+            string Phone = null;
+            string Birthday = null;
+            string Gender = null;
+            string Address = null;
+            string choice2;
+            string choice3;
+            while (true)
+            {
+                Console.Clear();
+                // Customer customer = null;
+                string row1 = "=====================================================================";
+                string row2 = "---------------------------------------------------------------------";
+                Console.WriteLine(row1);
+                Console.WriteLine("Enter Information");
+                Console.WriteLine(row2);
+                Console.WriteLine("Username: ");
+                Username = Console.ReadLine();
+                Console.WriteLine("Password: ");
+                Password = Console.ReadLine();
+                Console.WriteLine("Email: ");
+                Email = Console.ReadLine();
+                Console.WriteLine("Full Name: ");
+                Name = Console.ReadLine();
+                Console.WriteLine("Phone Number: ");
+                Phone = Console.ReadLine();
+                Console.WriteLine("Date Of Birth: ");
+                Birthday = Console.ReadLine();
+                Console.WriteLine("Gender: ");
+                Gender = Console.ReadLine();
+                Console.WriteLine("Address: ");
+                Address = Console.ReadLine();
+                int flag = customerBL.VerifyRegister(Username, Email);
+                if (flag == 2)
+                {
+                    customerBL.Register(Username, Password, Name, Email, Phone, Birthday, Gender, Address);
+                    Console.WriteLine("Registration successful");
+                    choice2 = Utility.OnlyYN("Do you want to continue? Y/N: ");
+                    switch (choice2)
+                    {
+                        case "Y":
+                            continue;
+                        case "N":
+                            Program();
+                            break;
+                        default:
+                            continue;
+                    }
+                }
+                else
+                {
+                    // Console.WriteLine("Username or email already exists!");
+                    choice3 = Utility.OnlyYN("Do you want to continue? Y/N: ");
+                    switch(choice3)
+                    {
+                        case "Y":
+                        continue;
+                        case "N":
+                        Program();
+                        break;
+                        default:
+                        continue;
+                    }
+                }
+            }
         }
         public void MenuLogin()
         {

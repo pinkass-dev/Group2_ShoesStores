@@ -41,19 +41,19 @@ namespace BL
             }
             return newshoes;
         }
-        public Shoes GetShoesById(int? ShoesId)
+        public Shoes GetShoesById(int? itemId)
         {
-            if (ShoesId == null)
+            if (itemId == null)
             {
                 return null;
             }
             Regex regex = new Regex("[0-9]");
-            MatchCollection matchCollectionId = regex.Matches(ShoesId.ToString());
-            if (matchCollectionId.Count< ShoesId.ToString().Length)
+            MatchCollection matchCollectionId = regex.Matches(itemId.ToString());
+            if (matchCollectionId.Count< itemId.ToString().Length)
             {
                 return null;
             }
-            return shoesDAL.GetShoesById(ShoesId);
+            return shoesDAL.GetShoesById(itemId);
         }
     }
 

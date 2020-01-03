@@ -18,6 +18,7 @@ constraint uq_Customers_email unique(customer_email)
 insert into Customers(customer_account,customer_password,customer_name, customer_email,customer_phone,customer_birthday,customer_gender,customer_address)
 value 
 ('xuan','123456','le ngoc xuan','lexuanxdts@gmail.com','0987541656','1994-12-28','male','ha noi');
+
 create table if not exists Orders(
 order_id int(10)  primary key auto_increment,
 order_customer int not null,
@@ -26,7 +27,7 @@ order_status int,
 constraint fk_Orders_Customers foreign key(order_customer) references Customers(customer_id)
 );
 
-
+select * from Customers;
 create table if not exists Items(
 item_id int primary key ,
 item_name varchar(50) not null,
@@ -104,19 +105,21 @@ constraint fk_Orderdetails_Items foreign key (item_id) references Items(item_id)
 select order_id from orders where order_customer = 1 order by order_id desc limit 1;
 select * from orders;
 select * from customers;
-select * from orderdetails;
+select * from orderdetails;--
 select * from orders where order_customer = 1 order by order_id desc limit 1;
 select * from Orderdetails where item_id = 1;
 
-select order_status from Orders ord inner join OrderDetails ordl on ord.order_id = ordl.order_id where order_customer = 1;
+select order_status from Orders ord inner join OrderDetails ordt on ord.order_id = ordt.order_id where order_customer = 1;
 select ord.order_id, ord.order_date, it.item_name from orders ord inner join orderDetails ordt on ord.order_id = ordt.order_id inner join Items it on ordt.item_id = it.item_id where ord.order_customer = 1 and ord.order_status = 1 limit 1;
--- insert into orders (orderUser,orderStatus) values(1,0);
+-- insert into orders (order_customer,order_status) values(1,0);
 -- insert into orderdetails(order_id,item_id) values (1,4);
 
+
+select it.item_id,it.item_name,itd.item_size,it.item_price,it.item_color,it.item_material,it.item_trademark, itd.item_quantity from items it, itemdetails itd where it.item_id = itd.item_id limit 10;
 select order_id from orders order by order_id desc limit 1;
 use ShoesStore;
 
-select it.item_id,it.item_name,it.item_price,it.item_color,it.item_material,it.item_trademark,itd.item_size,itd.item_quantity from items it, itemdetails itd where it.item_id = itd.item_id;
+
 create user if not exists 'root'@'localhost' identified by 'Lnx846061';
 grant all on customers to 'root'@'localhost';
 grant all on items to 'root'@'localhost';

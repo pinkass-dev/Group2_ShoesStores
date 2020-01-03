@@ -90,7 +90,7 @@ namespace PL_Console
                             }
                             continue;
                         case 2:
-                            Console.Write("Nhập tên sản phẩm: ");
+                            Console.Write("Enter Shoes' Name: ");
                             Console.InputEncoding = Encoding.Unicode;
                             Console.OutputEncoding = Encoding.Unicode;
                             string itemName = Console.ReadLine();
@@ -107,7 +107,7 @@ namespace PL_Console
 
 
         }
-        public void ShowAnItem(int? idItem)
+        public void ShowAnItem(int? itemId)
         {
             while (true)
             {
@@ -115,63 +115,31 @@ namespace PL_Console
                 Console.Clear();
                 Console.Clear();
                 Shoes shoes = new Shoes();
-                // RatingBL ratingBL = new RatingBL();
-                shoes = shoesBL.GetShoesById(idItem);
-                // List<Rating> ratings = ratingBL.GetAllRating(item.ItemId);
-                // int rateStar = 0;
-                // if (ratings.Count > 0)
-                // {
-                //     foreach (var rate in ratings)
-                //     {
-                //         rateStar += rate.RatingStars;
-                //     }
-                //     rateStar /= ratings.Count;
-                // }
-
+                shoes = shoesBL.GetShoesById(itemId);
                 var table = new ConsoleTable("Name:", Convert.ToString(shoes.ShoesName));
-                table.AddRow("Price:", FormatCurrency(shoes.ShoesPrice));
-                table.AddRow("Quantity:", shoes.ShoesQuantity);
                 table.AddRow("Size:", shoes.ShoesSize);
+                table.AddRow("Price:", FormatCurrency(shoes.ShoesPrice));
                 table.AddRow("Color:", shoes.ShoesColor);
                 table.AddRow("Material:", shoes.ShoesMaterial);
                 table.AddRow("Brand:", shoes.ShoesBrand);
+                table.AddRow("Quantity:", shoes.ShoesQuantity);
                 table.Write();
                 Console.WriteLine();
 
                 OrderBL orderBL = new OrderBL();
-                if (shoes.ShoesId != orderBL.CheckItemPurchase(shoes.ShoesId, customer.UserID))
+                // if (shoes.ShoesId != orderBL.CheckItemPurchase(shoes.ShoesId, customer.UserID))
+                // {
+                string[] choice = { "Add To Cart", "Back" };
+                short choose = Utility.MenuDetail("Menu", choice);
+                switch (choose)
                 {
-                    string[] choice = { "Add To Cart", "Back" };
-                    short choose = Utility.MenuDetail("Menu", choice);
-                    switch (choose)
-                    {
-                        case 1:
-                            AddToCart(shoes);
-                            continue;
-                        case 2:
-                            break;
-                    }
+                    case 1:
+                        AddToCart(shoes);
+                        continue;
+                    case 2:
+                        break;
                 }
-                else
-                {
-                    break;
-                    // string[] choice = { "Back" };
-                    // short choose = Utility.MenuDetail("Menu", choice);
-                    // switch (choose)
-                    // {
-
-                    //     case 1:
-                    //         RateItem(item);
-                    //         continue;
-                    //     case 2:
-                    //         ShowAllRating(item);
-                    //         continue;
-                    //     case 3:
-                    //         break;
-
-
-                }
-
+                break;
             }
 
         }
@@ -203,13 +171,14 @@ namespace PL_Console
                 }
                 catch (System.Exception)
                 {
-
+                    Console.WriteLine("XXX");
                     throw;
                 }
 
             }
             else
             {
+                // Console.WriteLine(customer.UserID);
                 customerBL.UpdateStatusShoppingCartById(false, customer.UserID); // set userShopping cart to 1
                 order.OrderStatus = 0;
                 try
@@ -222,7 +191,7 @@ namespace PL_Console
                 }
                 catch (System.Exception)
                 {
-
+                    Console.WriteLine("XXX1");
                     throw;
                 }
 
@@ -268,7 +237,6 @@ namespace PL_Console
                 }
                 else
                 {
-
                     Console.WriteLine($"You have {shoppingCart.Count} shoes in cart");
                     var table = new ConsoleTable("Code", "Name", "Price");
                     foreach (var item in shoppingCart)
@@ -279,8 +247,8 @@ namespace PL_Console
                     table.AddRow("", "", "");
                     table.AddRow("Total", "", FormatCurrency(total));
                     table.Write();
-                    // Console.WriteLine("Tổng tiền: {0}", FormatCurrency(total));
-                    // Console.WriteLine("Số tiền trong tài khoản của bạn: {0}", FormatCurrency(user.UserBalance));
+                    Console.WriteLine("Tổng tiền: {0}", FormatCurrency(total));
+                    
                     Console.WriteLine();
                     string[] choice = { "Pay", "Delete Shoes from cart", "Back" };
                     short choose = Utility.MenuDetail("Menu", choice);
@@ -343,50 +311,43 @@ namespace PL_Console
             order.OrderUser = new Customer();
             OrderBL orderBL = new OrderBL();
             order.OrderUser = customer;
-            // if (order.OrderUser.UserBalance < total)
-            // {
-            //     Console.WriteLine("Bạn không đủ tiền vui lòng nạp thêm tiền");
-            // }
-            
-            
-                try
+            try
+            {
+                if (orderBL.CreateOrder(order))
                 {
-                    if (orderBL.CreateOrder(order))
+                    Console.Clear();
+                    customerBL.UpdateStatusShoppingCartById(true, customer.UserID);
+                    Console.WriteLine("LOST MONEY =))");
+                     // set userShopping cart to 0
+                    List<Order> shoppingCart = new List<Order>();
+                    shoppingCart = orderBL.ShowOrderUserPaySucess(customer.UserID);
+                    Console.WriteLine("INVOICE");
+                    Console.WriteLine("CUSTOMER'S NAME: {0}", shoppingCart[0].OrderUser.UserName);
+                    Console.WriteLine("CUSTOMER'S EMAIL: {0}", shoppingCart[0].OrderUser.UserEmail);
+                    Console.WriteLine("CODE ORDERS: {0}", shoppingCart[0].OrderId);
+                    var table = new ConsoleTable("SHOES CODE", "SHOES NAME", "PRICE");
+                    foreach (var item in shoppingCart)
                     {
-                        Console.Clear();
-                        // Console.WriteLine("Mua hàng thành công");
-                        customerBL.UpdateStatusShoppingCartById(true, customer.UserID); // set userShopping cart to 0
-
-                        List<Order> shoppingCart = new List<Order>();
-                        shoppingCart = orderBL.ShowOrderUserPaySucess(customer.UserID);
-                        Console.WriteLine("Bill");
-                        Console.WriteLine("CUSTOMER'S NAME: {0}", shoppingCart[0].OrderUser.UserName);
-                        Console.WriteLine("CUSTOMER'S EMAIL: {0}", shoppingCart[0].OrderUser.UserEmail);
-
-                        Console.WriteLine("CODE ORDERS: {0}", shoppingCart[0].OrderId);
-                        var table = new ConsoleTable("SHOES CODE", "SHOES NAME", "PRICE");
-                        foreach (var item in shoppingCart)
-                        {
-                            table.AddRow(item.OrderItem.ShoesId, item.OrderItem.ShoesName, FormatCurrency(item.OrderItem.ShoesPrice));
-                        }
-                        table.AddRow("", "", "");
-                        table.AddRow("TOTAL", "", FormatCurrency(total));
-                        table.AddRow("DATE", "", shoppingCart[0].OrderDate?.ToString("yyyy-MM-dd"));
-                        table.Write();
-                        Console.WriteLine("THANKS YOU");
+                        table.AddRow(item.OrderItem.ShoesId, item.OrderItem.ShoesName, FormatCurrency(item.OrderItem.ShoesPrice));
                     }
-                    else
-                    {
-                        Console.WriteLine("Purchase failed");
-                    }
+                    table.AddRow("", "", "");
+                    table.AddRow("TOTAL", "", FormatCurrency(total));
+                    table.AddRow("DATE", "", shoppingCart[0].OrderDate?.ToString("yyyy-MM-dd"));
+                    table.Write();
+                    Console.WriteLine("THANKS YOU");
                 }
-                catch (System.Exception)
+                else
                 {
-
-                    throw;
+                    Console.WriteLine("Purchase failed");
                 }
+            }
+            catch (System.Exception)
+            {
+                Console.WriteLine("what the fuck????");
+                throw;
+            }
 
-            
+
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
         }

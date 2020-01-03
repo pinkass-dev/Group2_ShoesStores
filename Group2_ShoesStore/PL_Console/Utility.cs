@@ -100,13 +100,7 @@ namespace PL_Console
 
             foreach (Shoes item in shoes)
             {
-                bool bought = false;
-                if (item.ShoesId != orderBL.CheckItemPurchase(item.ShoesId, UserID))
-                {
-                    bought = true;
-                }
-
-                table.AddRow(item.ShoesId, item.ShoesName, bought == true ? FormatCurrency(item.ShoesPrice) : "Purchased", item.ShoesSize, item.ShoesColor, item.ShoesMaterial, item.ShoesBrand);
+                table.AddRow(item.ShoesId, item.ShoesName, FormatCurrency(item.ShoesPrice) , item.ShoesSize, item.ShoesColor, item.ShoesMaterial, item.ShoesBrand);
 
             }
             table.Write();
@@ -180,7 +174,7 @@ namespace PL_Console
             bool isHave = false;
             try
             {
-                Console.Write("Please enter Shoes's Name: ");
+                Console.Write("Please enter Shoes's ID: ");
 
                 idItem = Int16.Parse(Console.ReadLine());
             }
