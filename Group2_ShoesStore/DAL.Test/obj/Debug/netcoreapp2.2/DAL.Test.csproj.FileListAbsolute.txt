@@ -17,3 +17,4 @@ C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\DAL.Test\obj\Debu
 C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\DAL.Test\obj\Debug\netcoreapp2.2\DAL.Test.csproj.CopyComplete
 C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\DAL.Test\obj\Debug\netcoreapp2.2\DAL.Test.dll
 C:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\DAL.Test\obj\Debug\netcoreapp2.2\DAL.Test.pdb
+c:\Users\DMX xuan\Desktop\Group2_ShoesStores\Group2_ShoesStore\DAL.Test\bin\Debug\netcoreapp2.2\ConnectionString.txt

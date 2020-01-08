@@ -5864,11 +5864,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\DMX xuan\\Desktop\\Group2_ShoesStore\\BL.Test\\BL.Test.csproj",
-      "projectName": "BL.Test",
-      "projectPath": "C:\\Users\\DMX xuan\\Desktop\\Group2_ShoesStore\\BL.Test\\BL.Test.csproj",
+      "projectUniqueName": "C:\\Users\\DMX xuan\\Desktop\\Group2_ShoesStores\\Group2_ShoesStore\\BL.test\\BL.test.csproj",
+      "projectName": "BL.test",
+      "projectPath": "C:\\Users\\DMX xuan\\Desktop\\Group2_ShoesStores\\Group2_ShoesStore\\BL.test\\BL.test.csproj",
       "packagesPath": "C:\\Users\\DMX xuan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\DMX xuan\\Desktop\\Group2_ShoesStore\\BL.Test\\obj\\",
+      "outputPath": "C:\\Users\\DMX xuan\\Desktop\\Group2_ShoesStores\\Group2_ShoesStore\\BL.test\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

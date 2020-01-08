@@ -94,13 +94,13 @@ namespace PL_Console
             Console.Clear();
             Console.Clear();
             short choice = -1;
-            var table = new ConsoleTable("Shoes ID", "Name", "Price", "Size", "Color", "Material", "Brand");
+            var table = new ConsoleTable("Shoes ID", "Name", "Price", "Size", "Color", "Material", "Brand","Quantity");
 
             OrderBL orderBL = new OrderBL();
 
             foreach (Shoes item in shoes)
             {
-                table.AddRow(item.ShoesId, item.ShoesName, FormatCurrency(item.ShoesPrice) , item.ShoesSize, item.ShoesColor, item.ShoesMaterial, item.ShoesBrand);
+                table.AddRow(item.ShoesId, item.ShoesName, FormatCurrency(item.ShoesPrice) , item.ShoesSize, item.ShoesColor, item.ShoesMaterial, item.ShoesBrand, item.ShoesQuantity);
 
             }
             table.Write();

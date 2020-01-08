@@ -4,6 +4,7 @@ using BL;
 using System.Text;
 using System.Text.RegularExpressions;
 using ConsoleTables;
+using System.Net.Mail;
 namespace PL_Console
 {
     public class Menu
@@ -14,7 +15,6 @@ namespace PL_Console
             {
 
                 string[] choice = { "Login", "Sign Up", "Exit" };
-                // short choose = Mainmenu("EBook Store", choice);
                 short choose = Utility.MenuTemplate("Shoes Stores", choice);
                 switch (choose)
                 {
@@ -41,7 +41,7 @@ namespace PL_Console
         {
             CustomerBL customerBL = new CustomerBL();
             string Username = null;
-            string Password = null;
+            string password = null;
             string Name = null;
             string Email = null;
             string Phone = null;
@@ -53,33 +53,33 @@ namespace PL_Console
             while (true)
             {
                 Console.Clear();
-                // Customer customer = null;
                 string row1 = "=====================================================================";
                 string row2 = "---------------------------------------------------------------------";
                 Console.WriteLine(row1);
                 Console.WriteLine("Enter Information");
                 Console.WriteLine(row2);
-                Console.WriteLine("Username: ");
+                Console.Write("Username: ");
                 Username = Console.ReadLine();
-                Console.WriteLine("Password: ");
-                Password = Console.ReadLine();
-                Console.WriteLine("Email: ");
-                Email = Console.ReadLine();
-                Console.WriteLine("Full Name: ");
+                Console.Write("Password: ");
+                password = Password();
+                Console.Write("Email: ");
+                Email= Console.ReadLine();
+                // Email = EmailVali();
+                Console.Write("Full Name: ");
                 Name = Console.ReadLine();
-                Console.WriteLine("Phone Number: ");
+                Console.Write("Phone Number: ");
                 Phone = Console.ReadLine();
-                Console.WriteLine("Date Of Birth: ");
+                Console.Write("Date Of Birth: ");
                 Birthday = Console.ReadLine();
-                Console.WriteLine("Gender: ");
+                Console.Write("Gender: ");
                 Gender = Console.ReadLine();
-                Console.WriteLine("Address: ");
+                Console.Write("Address: ");
                 Address = Console.ReadLine();
                 int flag = customerBL.VerifyRegister(Username, Email);
                 if (flag == 2)
                 {
-                    customerBL.Register(Username, Password, Name, Email, Phone, Birthday, Gender, Address);
-                    Console.WriteLine("Registration successful");
+                    customerBL.Register(Username, password, Name, Email, Phone, Birthday, Gender, Address);
+                    // Console.WriteLine("Registration successful");
                     choice2 = Utility.OnlyYN("Do you want to continue? Y/N: ");
                     switch (choice2)
                     {
@@ -94,17 +94,16 @@ namespace PL_Console
                 }
                 else
                 {
-                    // Console.WriteLine("Username or email already exists!");
                     choice3 = Utility.OnlyYN("Do you want to continue? Y/N: ");
-                    switch(choice3)
+                    switch (choice3)
                     {
                         case "Y":
-                        continue;
+                            continue;
                         case "N":
-                        Program();
-                        break;
+                            Program();
+                            break;
                         default:
-                        continue;
+                            continue;
                     }
                 }
             }
@@ -217,5 +216,28 @@ namespace PL_Console
             }
             return sb.ToString();
         }
+        // public string EmailVali()
+        // {
+        //     string Email = Console.ReadLine();
+        //     while (true)
+        //     {
+        //         if (Email.Contains("@"))
+        //     {
+        //         Console.WriteLine(" Valid Email! ");
+                
+        //     }
+        //    else
+        //    {
+        //        Console.WriteLine("Invalid Email, Plz enter again :)");
+        //        break;
+               
+        //    }
+        //     }
+        //     return Email;
+        
+           
+
+        // }
+        
     }
 }

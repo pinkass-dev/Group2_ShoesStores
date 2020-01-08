@@ -8,7 +8,7 @@ customer_password varchar(50) not null,
 customer_email varchar(50) not null unique,
 customer_name nvarchar(50),
 customer_phone varchar(15),
-customer_birthday date,
+customer_birthday varchar(20),
 customer_gender varchar(10) ,
 customer_address varchar(100),
 UserShoppingCart bool default false,
@@ -38,26 +38,26 @@ item_trademark nvarchar(20)
 );
 insert into Items(item_id,item_name,item_price,item_color,item_material,item_trademark)
 value
-('1','Loafer','250000','black','fabric','vans'),
-('2','Jelli','350000','red','fabric','vans'),
-('3','Juzi','340000','red','fabric','vans'),
-('4','Baby','400000','red','fabric','vans'),
-('5','Boobby','500000','white','fabric','vans'),
+('1','loafer','250000','black','fabric','vans'),
+('2','jelli','350000','red','fabric','vans'),
+('3','juzi','340000','red','fabric','vans'),
+('4','baby','400000','red','fabric','vans'),
+('5','boobby','500000','white','fabric','vans'),
 ('6','Flat','450000','black','fabric','vans'),
-('7','Flus','300000','black','fabric','adidas'),
-('8','Oxfot','320000','black','fabric','adidas'),
-('9','Effen','1000000','red','fabric','adidas'),
-('10','Dock','700000','red','fabric','adidas'),
-('11','Duck','600000','yeallow','fabric','adidas'),
- ('12','Mary','530000','yeallow','fabric','adidas'),
-('13','Jane','250000','black','fabric','gucci'),
-('14','Moca','250000','red','fabric','gucci'),
-('15','Mocha','250000','gold','fabric','gucci'),
-('16','Kitten','400000','black','fabric','gucci'),
-('17','Cap','400000','red','fabric','gucci'),
-('18','Toe','400000','gold','fabric','gucci'),
-('19','Point','400000','pink','fabric','gucci'),
-('20','Open','450000','white','fabric','gucci');
+('7','flus','300000','black','fabric','adidas'),
+('8','oxfot','320000','black','fabric','adidas'),
+('9','effen','1000000','red','fabric','adidas'),
+('10','dock','700000','red','fabric','adidas'),
+('11','duck','600000','yeallow','fabric','adidas'),
+ ('12','mary','530000','yeallow','fabric','adidas'),
+('13','jane','250000','black','fabric','gucci'),
+('14','moca','250000','red','fabric','gucci'),
+('15','mocha','250000','gold','fabric','gucci'),
+('16','kitten','400000','black','fabric','gucci'),
+('17','cap','400000','red','fabric','gucci'),
+('18','toe','400000','gold','fabric','gucci'),
+('19','point','400000','pink','fabric','gucci'),
+('20','open','450000','white','fabric','gucci');
 
 
 select * from Items;
@@ -91,14 +91,14 @@ value
 ('19','42','5'),
 ('20','39','5');
 
-
-
+select item_quantity from itemdetails where item_id = 2;
 
 select order_id from orders where order_customer = 2 order by order_id  desc limit 1 ;
 create table if not exists Orderdetails(
 order_id int(10) not null,
 item_id int not null,
-constraint primary key(order_id, item_id),
+amount int,
+constraint primary key(order_id),
 constraint fk_Orderdetails_Orders foreign key(order_id) references Orders(order_id),
 constraint fk_Orderdetails_Items foreign key (item_id) references Items(item_id)
 );

@@ -42,6 +42,7 @@ namespace DAL
                 command.CommandText = "insert into OrderDetails(order_id,item_id) values (@orderId,@itemId)";
                 command.Parameters.AddWithValue("@orderId", order.OrderId);
                 command.Parameters.AddWithValue("@itemId", order.OrderItem.ShoesId);
+                // command.Parameters.AddWithValue("@Amount",order.Amount);
                 command.ExecuteNonQuery();
 
                 transaction.Commit();
@@ -92,6 +93,7 @@ namespace DAL
                 command.CommandText = "insert into OrderDetails(order_id,item_id) values (@orderId,@itemId)";
                 command.Parameters.AddWithValue("@orderId", order.OrderId);
                 command.Parameters.AddWithValue("@itemId", order.OrderItem.ShoesId);
+                // command.Parameters.AddWithValue("@Amount", order.Amount);
                 command.ExecuteNonQuery();
                 transaction.Commit();
                 result = true;
@@ -197,7 +199,7 @@ namespace DAL
             }
             catch (System.Exception)
             {
-                Console.WriteLine("deo ket noi dc ok");
+                Console.WriteLine("can not connect  ok");
                 return null;
             }
             while (reader.Read())
@@ -226,6 +228,9 @@ namespace DAL
 
             try
             {
+                // command.CommandText = "insert into Orders(order_customer) values (@Customer_id)";
+                // command.Parameters.AddWithValue("@Customer_id", order.OrderUser.UserID);
+                // command.ExecuteNonQuery();
                 string queryLastInsertId = $@"select order_id from Orders where order_customer = {order.OrderUser.UserID} order by order_id desc limit 1;";
                 MySqlCommand selectLastId = new MySqlCommand(queryLastInsertId, connection);
                 using (reader = selectLastId.ExecuteReader())
@@ -238,15 +243,21 @@ namespace DAL
                 }
 
                 command.Parameters.Clear();
+                // command.CommandText = "insert into OrderDetails(order_id,item_id) values (@Order_id,@item_id)";
+                // command.Parameters.Clear();
+                // command.Parameters.AddWithValue("@Order_id",order.OrderId);
+                // command.Parameters.AddWithValue("@item_id",order.OrderItem.ShoesId);
+                // command.Parameters.AddWithValue("@Amount",order.Amount);
+                // command.ExecuteNonQuery();
+                // command.CommandText = "update Itemdetails set item_quantity = item_quantity -@Amount where item_id = '"+order.OrderItem.ShoesId+"';";
+                // command.Parameters.Clear();
+                // command.Parameters.AddWithValue("@Amount",order.Amount);
+                // command.ExecuteNonQuery();
                 command.CommandText = $@"UPDATE Orders SET order_status = 1, order_date = NOW() where order_customer = {order.OrderUser.UserID} and order_id = {order.OrderId};";
                 command.ExecuteNonQuery();
-
-                
-
                 transaction.Commit();
                 result = true;
             }
-
             catch (System.Exception e)
             {
                 transaction.Rollback();
@@ -343,6 +354,7 @@ namespace DAL
             order.OrderItem.ShoesPrice = reader.GetDouble("item_price");
             order.OrderDate = reader.GetDateTime("order_date");
             order.OrderItem.ShoesName = reader.GetString("item_name");
+            // order.Amount = reader.GetInt32("amount");
             return order;
         }
         public int GetLastInsertOrderID(int? UserID)
@@ -365,6 +377,7 @@ namespace DAL
             order.OrderItem = new Shoes();
             order.OrderItem.ShoesId = reader.GetInt32("item_id");
             order.OrderItem.ShoesName = reader.GetString("item_name");
+            // order.Amount = reader.GetInt32("amount");
             order.OrderDate = reader.GetDateTime("order_date");
             return order;
         }

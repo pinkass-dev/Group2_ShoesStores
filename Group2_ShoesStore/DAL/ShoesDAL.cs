@@ -94,6 +94,34 @@ public List<Shoes> SearchShoesName()
             DBHelper.CloseConnection();
             return shoes;
         }
+
+        public List<Shoes> PagingItems(int pageNo, int itemPerPAge)
+        {
+
+            DBHelper.OpenConnection();
+
+            query = $@"select * from items limit {pageNo},{itemPerPAge} order by id OFFSET 10 ROW FETCH next 10 rows only";
+            List<Shoes> shoes = new List<Shoes>();
+            reader = DBHelper.ExecQuery(query, DBHelper.OpenConnection());
+            while (reader.Read())
+            {
+                shoes.Add(GetShoesInfo(reader));
+            }
+            reader.Close();
+            DBHelper.CloseConnection();
+
+            return shoes;
+        }
+        public int GetTotalPage()
+        {
+
+
+            query = @"select count(*) / 10 from items;";
+            var command = new MySqlCommand(query, DBHelper.OpenConnection());
+            int count = Convert.ToInt32(command.ExecuteScalar());
+            DBHelper.CloseConnection();
+            return count;
+        }
         private Shoes GetShoesInfo(MySqlDataReader reader)
         {
             Shoes shoes = new Shoes();
@@ -107,6 +135,7 @@ public List<Shoes> SearchShoesName()
             shoes.ShoesQuantity = reader.GetInt32("item_quantity");
             return shoes;
         }
+
 
     }
     

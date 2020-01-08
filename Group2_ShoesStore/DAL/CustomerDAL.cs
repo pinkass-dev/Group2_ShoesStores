@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using MySql.Data.MySqlClient;
 using Persistence;
+using System.Security.Cryptography;
 namespace DAL
 {
     public class CustomerDAL
@@ -10,6 +11,7 @@ namespace DAL
         private MySqlDataReader reader;
         private string query;
         public CustomerDAL() { }
+        
         public Customer GetCustomerByUserNameAndPassWord(string username, string password)
         {
             if ((username == null) || (password == null))
@@ -76,9 +78,9 @@ namespace DAL
             switch (isHave)
             {
                 case true:
-                    //Console.WriteLine(userId);
+                    
                     query = @"update Customers set UserShoppingCart = false where customer_id = " + UserID + ";";
-                    Console.WriteLine(query);
+                    
                     break;
                 case false:
                     query = @"update Customers set UserShoppingCart = true where customer_id = " + UserID + ";";
@@ -127,22 +129,13 @@ namespace DAL
         }
         public int Register(string Username, string Password, string Name, string Email, string Phone, string Birthday, string Gender, string Address)
         {
-            // MySqlConnection connection = DBHelper.OpenConnection();
-            // MySqlCommand command = connection.CreateCommand();
+            
             try
             {
                 MySqlConnection connection = DBHelper.OpenConnection();
-                // DBHelper.OpenConnection();
+                
                 query = @"insert into Customers(customer_account,customer_password,customer_name, customer_email,customer_phone,customer_birthday,customer_gender,customer_address) values ('"+Username+"','"+Password+"','"+Name+"','"+Email+"','"+Phone+"','"+Birthday+"','"+Gender+"','"+Address+"');";
-                // query = @"insert into Customers(customer_account,customer_password,customer_name, customer_email,customer_phone,customer_birthday,customer_gender,customer_address) values (@Username,@Password,@Email,@Phone,@Birthday,@Gender,@Address);";
-                // command.Parameters.AddWithValue("@Username",Username);
-                // command.Parameters.AddWithValue("@Password",Password);
-                // command.Parameters.AddWithValue("@Email",Email);
-                // command.Parameters.AddWithValue("@Phone",Phone);
-                // command.Parameters.AddWithValue("@Birthday",Birthday);
-                // command.Parameters.AddWithValue("@Gender",Gender);
-                // command.Parameters.AddWithValue("@Address",Address);
-                // MySqlCommand command = connection.CreateCommand();
+                
                 MySqlCommand command = new MySqlCommand(query,connection);
                 command.ExecuteNonQuery();
             }

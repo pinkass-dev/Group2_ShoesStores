@@ -41,6 +41,14 @@ namespace BL
             }
             return newshoes;
         }
+         public List<Shoes> PagingItems(int pageNo, int itemPerPAge)
+        {
+            return shoesDAL.PagingItems(pageNo,itemPerPAge);
+        }
+        public int GetTotalPage()
+        {
+            return shoesDAL.GetTotalPage();
+        }
         public Shoes GetShoesById(int? itemId)
         {
             if (itemId == null)

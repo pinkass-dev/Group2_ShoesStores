@@ -23,9 +23,9 @@ namespace PL_Console
             while (true)
             {
                 OrderBL orderBL = new OrderBL();
-                string[] choice = {"account information", "List Shoes",
-                 $"view cart ({orderBL.ShowShopingCartByUserId(customer.UserID).Count} product)",
-                 "purchased list", "Exit"};
+                string[] choice = {"Account Information", "List Shoes",
+                 $"View Cart ({orderBL.ShowShopingCartByUserId(customer.UserID).Count} product)",
+                 "Purchased List", "Exit"};
                 short choose = Utility.MenuTemplate("Menu", choice);
                 switch (choose)
                 {
@@ -57,6 +57,7 @@ namespace PL_Console
         }
         public void ShowlistItems()
         {
+            Console.Clear();
             List<Shoes> shoes = null;
 
             shoes = shoesBL.GetListShoes();
@@ -122,7 +123,7 @@ namespace PL_Console
                 table.AddRow("Color:", shoes.ShoesColor);
                 table.AddRow("Material:", shoes.ShoesMaterial);
                 table.AddRow("Brand:", shoes.ShoesBrand);
-                table.AddRow("Quantity:", shoes.ShoesQuantity);
+                // table.AddRow("Quantity:", shoes.ShoesQuantity);
                 table.Write();
                 Console.WriteLine();
 
@@ -247,7 +248,7 @@ namespace PL_Console
                     table.AddRow("", "", "");
                     table.AddRow("Total", "", FormatCurrency(total));
                     table.Write();
-                    Console.WriteLine("Tổng tiền: {0}", FormatCurrency(total));
+                    Console.WriteLine("Total: {0}", FormatCurrency(total));
                     
                     Console.WriteLine();
                     string[] choice = { "Pay", "Delete Shoes from cart", "Back" };
@@ -317,7 +318,7 @@ namespace PL_Console
                 {
                     Console.Clear();
                     customerBL.UpdateStatusShoppingCartById(true, customer.UserID);
-                    Console.WriteLine("LOST MONEY =))");
+                    Console.WriteLine("Shoes Stores");
                      // set userShopping cart to 0
                     List<Order> shoppingCart = new List<Order>();
                     shoppingCart = orderBL.ShowOrderUserPaySucess(customer.UserID);
@@ -325,13 +326,13 @@ namespace PL_Console
                     Console.WriteLine("CUSTOMER'S NAME: {0}", shoppingCart[0].OrderUser.UserName);
                     Console.WriteLine("CUSTOMER'S EMAIL: {0}", shoppingCart[0].OrderUser.UserEmail);
                     Console.WriteLine("CODE ORDERS: {0}", shoppingCart[0].OrderId);
-                    var table = new ConsoleTable("SHOES CODE", "SHOES NAME", "PRICE");
+                    var table = new ConsoleTable("SHOES CODE", "SHOES NAME", " UNIT PRICE");
                     foreach (var item in shoppingCart)
                     {
                         table.AddRow(item.OrderItem.ShoesId, item.OrderItem.ShoesName, FormatCurrency(item.OrderItem.ShoesPrice));
                     }
                     table.AddRow("", "", "");
-                    table.AddRow("TOTAL", "", FormatCurrency(total));
+                    table.AddRow("TOTAL AMOUNT", "", FormatCurrency(total));
                     table.AddRow("DATE", "", shoppingCart[0].OrderDate?.ToString("yyyy-MM-dd"));
                     table.Write();
                     Console.WriteLine("THANKS YOU");
@@ -343,7 +344,7 @@ namespace PL_Console
             }
             catch (System.Exception)
             {
-                Console.WriteLine("what the fuck????");
+                Console.WriteLine("NO MONEY????");
                 throw;
             }
 

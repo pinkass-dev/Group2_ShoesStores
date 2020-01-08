@@ -22,6 +22,7 @@ namespace Persistence
         public int OrderStatus{get;set;}
         public Shoes OrderItem{get;set;}
         public List<Shoes> ListShoes;
+        public int Amount;
     }
     
 }

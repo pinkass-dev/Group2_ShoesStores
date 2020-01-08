@@ -102,7 +102,7 @@ namespace ConsoleTables
             if (Options.EnableCount)
             {
                 builder.AppendLine("");
-                builder.AppendFormat(" Count: {0}", Rows.Count);
+                // builder.AppendFormat(" Count: {0}", Rows.Count);
             }
 
             return builder.ToString();
