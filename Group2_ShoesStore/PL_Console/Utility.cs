@@ -171,12 +171,14 @@ namespace PL_Console
         {
 
             short idItem = -1;
+             string shoesSize = "";
             bool isHave = false;
             try
             {
                 Console.Write("Please enter Shoes's ID: ");
-
                 idItem = Int16.Parse(Console.ReadLine());
+                Console.Write("Please enter Shoes' Size: ");
+                shoesSize = Convert.ToString(Console.ReadLine());
             }
             catch (System.Exception)
             {
@@ -190,18 +192,34 @@ namespace PL_Console
                     isHave = true;
                 }
             }
+            foreach (var item in shoes)
+            {
+                if (shoesSize == item.ShoesSize)
+                {
+                    isHave = true;
+                }
+            }
             if (!isHave)
             {
                 do
                 {
                     try
                     {
-                        Console.Write("#Please enter again: ");
+                        Console.Write("#Please enter Shoes' Id again: ");
                         idItem = Int16.Parse(Console.ReadLine());
+                        Console.Write(" Shoes'Size: ");
+                        shoesSize = Convert.ToString(Console.ReadLine());
                         foreach (var item in shoes)
                         {
 
                             if (idItem == item.ShoesId)
+                            {
+                                isHave = true;
+                            }
+                        }
+                        foreach (var item in shoes)
+                        {
+                            if (shoesSize == item.ShoesSize)
                             {
                                 isHave = true;
                             }

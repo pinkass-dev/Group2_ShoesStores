@@ -72,7 +72,7 @@ namespace PL_Console
 
 
                     int? idItem;
-                    string[] listcol = { "Select Product", "Search", "Back" };
+                    string[] listcol = { "Select Product", "Search", "Back", "Select Page" };
                     int choice = Utility.showListItems("List Shoes", listcol, shoes, customer.UserID);
                     switch (choice)
                     {
@@ -100,6 +100,8 @@ namespace PL_Console
 
                         case 3:
                             break;
+                        case 4:
+                            break;
 
                     }
                     break;
@@ -112,13 +114,12 @@ namespace PL_Console
         {
             while (true)
             {
-
                 Console.Clear();
                 Console.Clear();
                 Shoes shoes = new Shoes();
                 shoes = shoesBL.GetShoesById(itemId);
                 var table = new ConsoleTable("Name:", Convert.ToString(shoes.ShoesName));
-                table.AddRow("Size:", shoes.ShoesSize);
+                table.AddRow("Size:", SubStringSize(shoes.ShoesSize));
                 table.AddRow("Price:", FormatCurrency(shoes.ShoesPrice));
                 table.AddRow("Color:", shoes.ShoesColor);
                 table.AddRow("Material:", shoes.ShoesMaterial);
@@ -126,7 +127,6 @@ namespace PL_Console
                 // table.AddRow("Quantity:", shoes.ShoesQuantity);
                 table.Write();
                 Console.WriteLine();
-
                 OrderBL orderBL = new OrderBL();
                 // if (shoes.ShoesId != orderBL.CheckItemPurchase(shoes.ShoesId, customer.UserID))
                 // {
@@ -249,7 +249,7 @@ namespace PL_Console
                     table.AddRow("Total", "", FormatCurrency(total));
                     table.Write();
                     Console.WriteLine("Total: {0}", FormatCurrency(total));
-                    
+
                     Console.WriteLine();
                     string[] choice = { "Pay", "Delete Shoes from cart", "Back" };
                     short choose = Utility.MenuDetail("Menu", choice);
@@ -319,7 +319,7 @@ namespace PL_Console
                     Console.Clear();
                     customerBL.UpdateStatusShoppingCartById(true, customer.UserID);
                     Console.WriteLine("Shoes Stores");
-                     // set userShopping cart to 0
+                    // set userShopping cart to 0
                     List<Order> shoppingCart = new List<Order>();
                     shoppingCart = orderBL.ShowOrderUserPaySucess(customer.UserID);
                     Console.WriteLine("INVOICE");
@@ -386,6 +386,11 @@ namespace PL_Console
         {
             string a = string.Format(new CultureInfo("vi-VN"), "{0:#,##0} VNĐ", price);
             return a;
+        }
+        public string SubStringSize(string ShoesSize)
+        {
+            string b = ShoesSize.Substring(0, 2);
+            return b;
         }
 
     }

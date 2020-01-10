@@ -37,8 +37,10 @@ public List<Shoes> SearchShoesName()
         
         public List<Shoes> GetListShoes()
         {
+            
             DBHelper.OpenConnection();
-            query = $@"select it.item_id,it.item_name,it.item_price,it.item_color,it.item_material,it.item_trademark,itd.item_size,itd.item_quantity from items it, itemdetails itd where it.item_id = itd.item_id limit 10;";
+            // page = (page -1)*10;
+            query = @"select it.item_id,it.item_name,it.item_price,it.item_color,it.item_material,it.item_trademark,itd.item_size,itd.item_quantity from items it, itemdetails itd where it.item_id = itd.item_id limit 10;";
             List<Shoes> shoes = new List<Shoes>();
             try
             {
@@ -127,7 +129,7 @@ public List<Shoes> SearchShoesName()
             Shoes shoes = new Shoes();
             shoes.ShoesId = reader.GetInt32("item_id");
             shoes.ShoesName = reader.GetString("item_name");
-            shoes.ShoesSize = reader.GetInt32("item_size");
+            shoes.ShoesSize = reader.GetString("item_size");
             shoes.ShoesPrice = reader.GetInt32("item_price");
             shoes.ShoesColor = reader.GetString("item_color");
             shoes.ShoesMaterial = reader.GetString("item_material");

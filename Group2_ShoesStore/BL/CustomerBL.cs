@@ -26,7 +26,7 @@ namespace BL
             }
             return customerDAL.GetCustomerByUserNameAndPassWord(username,password);
         }
-        public Customer GetCustomerByID(int UserID)
+        public Customer GetCustomerByID(int? UserID)
         {
             return customerDAL.GetCustomerByID(UserID);
         }

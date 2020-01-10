@@ -7,7 +7,7 @@ namespace Persistence
         public Shoes(){}
         public int? ShoesId { get; set; }
         public string ShoesName { get; set; }
-        public int ShoesSize { get; set; }
+        public string ShoesSize { get; set; }
         public double ShoesPrice { get; set; }
         public int ShoesQuantity { get; set; }
         public string ShoesColor { get; set; }
