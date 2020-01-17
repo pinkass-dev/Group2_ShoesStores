@@ -26,7 +26,7 @@ namespace PL_Console
             Console.WriteLine(row1);
             try
             {
-                Console.WriteLine("#Select: ");
+                Console.Write("#Select: ");
                 choose = Int16.Parse(Console.ReadLine());
             }
             catch (System.Exception)
@@ -94,13 +94,13 @@ namespace PL_Console
             Console.Clear();
             Console.Clear();
             short choice = -1;
-            var table = new ConsoleTable("Shoes ID", "Name", "Price", "Size", "Color", "Material", "Brand","Quantity");
+            var table = new ConsoleTable("Shoes ID", "Name", "Price", "Size", "Color", "Material", "Brand", "Quantity");
 
             OrderBL orderBL = new OrderBL();
 
             foreach (Shoes item in shoes)
             {
-                table.AddRow(item.ShoesId, item.ShoesName, FormatCurrency(item.ShoesPrice) , item.ShoesSize, item.ShoesColor, item.ShoesMaterial, item.ShoesBrand, item.ShoesQuantity);
+                table.AddRow(item.ShoesId, item.ShoesName, FormatCurrency(item.ShoesPrice), item.ShoesSize, item.ShoesColor, item.ShoesMaterial, item.ShoesBrand, item.ShoesQuantity);
 
             }
             table.Write();
@@ -151,14 +151,14 @@ namespace PL_Console
             Console.WriteLine(title);
             // Console.WriteLine(row2);
 
-            string[] infoUser = { cus.UserAccount, cus.UserName, cus.UserEmail, 
+            string[] infoUser = { cus.UserAccount, cus.UserName, cus.UserEmail,
             cus.UserAdd,cus.UserPhone,cus.UserGender,cus.UserBirthDay };
             var table = new ConsoleTable("Account", cus.UserAccount);
             table.AddRow("Name", cus.UserName);
             table.AddRow("Email", cus.UserEmail);
             table.AddRow("Address", cus.UserAdd);
             table.AddRow("Phone Number", cus.UserPhone);
-            table.AddRow("Gender",cus.UserGender);
+            table.AddRow("Gender", cus.UserGender);
             table.AddRow("Date Of Birth", cus.UserBirthDay);
             table.Write();
             Console.WriteLine(row1);
@@ -166,19 +166,24 @@ namespace PL_Console
             Console.ReadKey();
 
         }
-        public static short SelectAnItem(List<Shoes> shoes)
+        public static string SelectAnItem(List<Shoes> shoes)
 
         {
 
             short idItem = -1;
-             string shoesSize = "";
+            string shoesSize = "";
+            int amount = 1;
             bool isHave = false;
+            string para = "";
             try
             {
                 Console.Write("Please enter Shoes's ID: ");
                 idItem = Int16.Parse(Console.ReadLine());
                 Console.Write("Please enter Shoes' Size: ");
                 shoesSize = Convert.ToString(Console.ReadLine());
+                Console.Write("Please enter amount: ");
+                amount = Int32.Parse(Console.ReadLine());
+                
             }
             catch (System.Exception)
             {
@@ -209,6 +214,8 @@ namespace PL_Console
                         idItem = Int16.Parse(Console.ReadLine());
                         Console.Write(" Shoes'Size: ");
                         shoesSize = Convert.ToString(Console.ReadLine());
+                        Console.Write("Please enter amount again: ");
+                        amount = Int32.Parse(Console.ReadLine());
                         foreach (var item in shoes)
                         {
 
@@ -231,9 +238,8 @@ namespace PL_Console
                     }
                 } while (!isHave);
             }
-            return idItem;
-
-
+            para = amount.ToString() + ',' + idItem.ToString();
+            return para;
         }
         public static string OnlyYN(string printcl)
         {

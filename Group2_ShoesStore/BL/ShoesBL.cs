@@ -17,9 +17,9 @@ namespace BL
         // {
         //     return shoesDAL.GetShoesByName(ShoesName);
         // }
-        public List<Shoes> GetListShoes()
+        public List<Shoes> GetListShoes(int pageIndex)
         {
-            return shoesDAL.GetListShoes();
+            return shoesDAL.GetListShoes(pageIndex);
         }
         public List<Shoes> SearchShoesName()
         {

@@ -111,10 +111,6 @@ value
 ('73','Madiso44','4500000','gold','fabric','hermes'),
 ('74','Madiso55','345000','black','fabric','hermes'),
 ('75','Madison66','250000','orange','fabric','hermes');
-
-
-
-
 select * from Customers;
 
 select * from Items;
@@ -124,7 +120,6 @@ item_size nvarchar(20) not null,
 item_quantity int not null,
 constraint fk_itemdetails_items foreign key (item_id) references Items(item_id)
 );
-
 insert into ItemDetails (item_id,item_size,item_quantity)
 value
 ('1','39,40','5'),

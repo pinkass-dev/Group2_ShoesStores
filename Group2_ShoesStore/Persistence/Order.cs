@@ -22,7 +22,9 @@ namespace Persistence
         public int OrderStatus{get;set;}
         public Shoes OrderItem{get;set;}
         public List<Shoes> ListShoes;
-        // public int Amount;
+        public int Amount{get;set;}
+        public double Price {get; set;} 
+        public double Total {get; set;}
     }
     
 }

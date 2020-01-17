@@ -10,7 +10,7 @@ namespace DAL.Test
         [Fact]
         public void GetListItemsTest()
         {
-            Assert.NotNull(shoesBL.GetListShoes());
+            Assert.NotNull(shoesBL.GetListShoes(1));
         }
         [Theory]
         [InlineData(1)]

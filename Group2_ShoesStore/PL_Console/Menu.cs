@@ -63,8 +63,7 @@ namespace PL_Console
                 Console.Write("Password: ");
                 password = Password();
                 Console.Write("Email: ");
-                Email= Console.ReadLine();
-                // Email = EmailVali();
+                Email = Console.ReadLine();
                 Console.Write("Full Name: ");
                 Name = Console.ReadLine();
                 Console.Write("Phone Number: ");
@@ -79,7 +78,6 @@ namespace PL_Console
                 if (flag == 2)
                 {
                     customerBL.Register(Username, password, Name, Email, Phone, Birthday, Gender, Address);
-                    // Console.WriteLine("Registration successful");
                     choice2 = Utility.OnlyYN("Do you want to continue? Y/N: ");
                     switch (choice2)
                     {
@@ -218,25 +216,23 @@ namespace PL_Console
         }
         // public string EmailVali()
         // {
-        //     string Email = Console.ReadLine();
         //     while (true)
         //     {
+        //         string Email = Console.ReadLine();
         //         if (Email.Contains("@"))
         //     {
-        //         Console.WriteLine(" Valid Email! ");
                 
+        //         Console.WriteLine(" Valid Email! ");
+        //         break;
         //     }
         //    else
         //    {
         //        Console.WriteLine("Invalid Email, Plz enter again :)");
-        //        break;
+               
                
         //    }
         //     }
-        //     return Email;
-        
-           
-
+            
         // }
         
     }

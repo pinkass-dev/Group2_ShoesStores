@@ -11,7 +11,7 @@ namespace DAL.Test
         private MySqlDataReader reader;
         OrderDAL orderDAL = new OrderDAL();
         [Fact]
-        public void CreateShoppingCartTest()
+        public void CreateShoppingCartTest(int amount)
         {
             CustomerDAL customerDAL = new CustomerDAL();
             Order order = new Order();
@@ -21,11 +21,11 @@ namespace DAL.Test
             order.OrderStatus = 0;
             order.OrderItem = shoesDAL.GetShoesById(2);
             order.OrderUser = customerDAL.GetCustomerByID(1);
-            Assert.True(orderDAL.CreateShoppingCart(order));
+            Assert.True(orderDAL.CreateShoppingCart(order, amount));
             orderDAL.DeleteAllItemInShoppingCartByUserID(1);
         }
         [Fact]
-        public void CreateShoppingCartTest1()
+        public void CreateShoppingCartTest1(int amount)
         {
             CustomerDAL customerDAL = new CustomerDAL();
             Order order = new Order();
@@ -36,10 +36,10 @@ namespace DAL.Test
             order.OrderUser.UserID = 0;
             order.OrderItem.ShoesId = 0;
 
-            Assert.False(orderDAL.CreateShoppingCart(order));
+            Assert.False(orderDAL.CreateShoppingCart(order, amount));
         }
         [Fact]
-        public void AddToShoppingCartTest()
+        public void AddToShoppingCartTest(int amount)
         {
             Order order = new Order();
             ShoesDAL shoesDAL = new ShoesDAL();
@@ -58,13 +58,13 @@ namespace DAL.Test
             command.ExecuteNonQuery();
             customerDAL.UpdateStatusShoppingCartById(false, order.OrderUser.UserID); // set userShopping cart to 1
 
-            Assert.True(orderDAL.AddToShoppingcart(order));
+            Assert.True(orderDAL.AddToShoppingcart(order, amount));
 
             orderDAL.DeleteAllItemInShoppingCartByUserID(order.OrderUser.UserID);
             customerDAL.UpdateStatusShoppingCartById(true, order.OrderUser.UserID); // set userShopping cart to 0
         }
         [Fact]
-        public void AddToShoppingCartTest1()
+        public void AddToShoppingCartTest1(int amount)
         {
             Order order = new Order();
             ShoesDAL shoesDAL = new ShoesDAL();
@@ -78,10 +78,10 @@ namespace DAL.Test
             order.OrderItem.ShoesId = 0;
 
 
-            Assert.False(orderDAL.AddToShoppingcart(order));
+            Assert.False(orderDAL.AddToShoppingcart(order,amount));
         }
         [Fact]
-        public void AddToShoppingCartTest2()
+        public void AddToShoppingCartTest2(int amount)
         {
             Order order = new Order();
             CustomerDAL customerDAL = new CustomerDAL();
@@ -99,7 +99,7 @@ namespace DAL.Test
             command.ExecuteNonQuery();
             customerDAL.UpdateStatusShoppingCartById(false, order.OrderUser.UserID); // set userShopping cart to 1
 
-            Assert.False(orderDAL.AddToShoppingcart(order));
+            Assert.False(orderDAL.AddToShoppingcart(order, amount));
 
             orderDAL.DeleteAllItemInShoppingCartByUserID(order.OrderUser.UserID);
             customerDAL.UpdateStatusShoppingCartById(true, order.OrderUser.UserID); // set userShopping cart to 0
@@ -157,7 +157,7 @@ namespace DAL.Test
             Assert.Null(orderDAL.ShowShopingCartByUserId(null));
         }
         [Fact]
-        public void CreateOrderTest()
+        public void CreateOrderTest(int amount)
         {
             CustomerDAL customerDAL = new CustomerDAL();
             ShoesDAL shoesDAL = new ShoesDAL();
@@ -168,7 +168,7 @@ namespace DAL.Test
             order.OrderStatus = 0;
             order.OrderItem = shoesDAL.GetShoesById(2);
             order.OrderUser = customerDAL.GetCustomerByID(1);
-            orderDAL.CreateShoppingCart(order);
+            orderDAL.CreateShoppingCart(order,amount);
 
             Assert.True(orderDAL.CreateOrder(order));
 
@@ -176,7 +176,7 @@ namespace DAL.Test
         }
 
         [Fact]
-        public void ShowOrderByUserIdTest()
+        public void ShowOrderByUserIdTest(int amount)
         {
             CustomerDAL customerDAL = new CustomerDAL();
             ShoesDAL shoesDAL = new ShoesDAL();
@@ -187,7 +187,7 @@ namespace DAL.Test
             order.OrderStatus = 0;
             order.OrderItem = shoesDAL.GetShoesById(2);
             order.OrderUser = customerDAL.GetCustomerByID(1);
-            orderDAL.CreateShoppingCart(order);
+            orderDAL.CreateShoppingCart(order,amount);
             orderDAL.CreateOrder(order);
 
             Assert.NotNull(orderDAL.ShowAllItemOrdered(1));
@@ -200,7 +200,7 @@ namespace DAL.Test
             Assert.Null(orderDAL.ShowAllItemOrdered(null));
         }
         [Fact]
-        public void ShowOrderUserPaySucessTest()
+        public void ShowOrderUserPaySucessTest(int amount)
         {
             CustomerDAL customerDAL = new CustomerDAL();
             ShoesDAL shoesDAL = new ShoesDAL();
@@ -211,7 +211,7 @@ namespace DAL.Test
             order.OrderStatus = 0;
             order.OrderItem = shoesDAL.GetShoesById(2);
             order.OrderUser = customerDAL.GetCustomerByID(1);
-            orderDAL.CreateShoppingCart(order);
+            orderDAL.CreateShoppingCart(order, amount);
             orderDAL.CreateOrder(order);
 
             Assert.NotNull(orderDAL.ShowOrderUserPaySucess(1));

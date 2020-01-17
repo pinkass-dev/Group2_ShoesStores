@@ -13,5 +13,7 @@ namespace Persistence
         public string ShoesColor { get; set; }
         public string ShoesMaterial { get; set; }
         public string ShoesBrand { get; set; }
+        public int aMount{get;set;}
+        public double toTal{get;set;}
     }
 }

@@ -12,19 +12,19 @@ namespace BL
         {
             orderDAL = new OrderDAL();
         }
-        public bool CreateShoppingCart(Order order)
+        public bool CreateShoppingCart(Order order, int amount)
         {
 
             if (order == null)
             {
                 return false;
             }
-            return orderDAL.CreateShoppingCart(order);
+            return orderDAL.CreateShoppingCart(order, amount);
         }
-        public bool AddToShoppingcart(Order order)
+        public bool AddToShoppingcart(Order order, int amount)
         {
 
-            return orderDAL.AddToShoppingcart(order);
+            return orderDAL.AddToShoppingcart(order, amount);
         }
         public bool DeleteItemInShoppingCartByIdItem(int? ShoesId)
         {

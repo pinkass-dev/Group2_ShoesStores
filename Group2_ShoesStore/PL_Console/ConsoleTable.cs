@@ -7,6 +7,9 @@ using System.Text.RegularExpressions;
 
 namespace ConsoleTables
 {
+    
+
+
     public class ConsoleTable
     {
         public IList<object> Columns { get; set; }

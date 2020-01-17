@@ -9,45 +9,47 @@ namespace DAL
     {
         private string query;
         private MySqlDataReader reader;
-        
-public List<Shoes> SearchShoesName()
-{
-    query = @"select it.item_id,it.item_name,itd.item_size,it.item_price,it.item_color,it.item_material,it.item_trademark,itd.item_quantity from items it, itemdetails itd where it.item_id = itd.item_id;";
-    List<Shoes> shoes = new List<Shoes>();
-    
-    try
-    {
-        
-        reader = DBHelper.ExecQuery(query,DBHelper.OpenConnection());
-    }
-    catch (System.Exception)
-    {
-        
-    Console.WriteLine("can not connect to database!");
-    return null;
-    }
-    while (reader.Read())
-    {
-        shoes.Add(GetShoesInfo(reader));
-    }
-    reader.Close();
-    DBHelper.CloseConnection();
-    return shoes;
-}
-        
-        public List<Shoes> GetListShoes()
+
+        public List<Shoes> SearchShoesName()
         {
-            
+            query = @"select it.item_id,it.item_name,itd.item_size,it.item_price,it.item_color,it.item_material,it.item_trademark,itd.item_quantity from items it, itemdetails itd where it.item_id = itd.item_id;";
+            List<Shoes> shoes = new List<Shoes>();
+
+            try
+            {
+
+                reader = DBHelper.ExecQuery(query, DBHelper.OpenConnection());
+            }
+            catch (System.Exception)
+            {
+
+                Console.WriteLine("can not connect to database!");
+                return null;
+            }
+            while (reader.Read())
+            {
+                shoes.Add(GetShoesInfo(reader));
+            }
+            reader.Close();
+            DBHelper.CloseConnection();
+            return shoes;
+        }
+
+        public List<Shoes> GetListShoes(int PageIndex = 1)
+        {
+            int PageSize = 10;
             DBHelper.OpenConnection();
-            // page = (page -1)*10;
-            query = @"select it.item_id,it.item_name,it.item_price,it.item_color,it.item_material,it.item_trademark,itd.item_size,itd.item_quantity from items it, itemdetails itd where it.item_id = itd.item_id limit 10;";
+
+            var index = PageSize * (PageIndex - 1);
+            query = @"select it.item_id,it.item_name,it.item_price,it.item_color,it.item_material,it.item_trademark,itd.item_size,itd.item_quantity from items it, itemdetails itd where it.item_id = itd.item_id order by it.item_id limit " + PageSize + " offset " + index + "";
             List<Shoes> shoes = new List<Shoes>();
             try
             {
                 reader = DBHelper.ExecQuery(query, DBHelper.OpenConnection());
             }
-            catch (System.Exception)
+            catch (System.Exception Exception)
             {
+                Console.WriteLine(Exception);
                 Console.WriteLine("Can not connect database!");
                 return null;
             }
@@ -65,9 +67,9 @@ public List<Shoes> SearchShoesName()
             {
                 return null;
             }
-            
-            query = $@"select it.item_id,it.item_name,itd.item_size,it.item_price,it.item_color,it.item_material,it.item_trademark,itd.item_quantity from Items it, Itemdetails itd where it.item_id = "+ itemId+";";
-            reader = DBHelper.ExecQuery(query,DBHelper.OpenConnection());
+
+            query = $@"select it.item_id,it.item_name,itd.item_size,it.item_price,it.item_color,it.item_material,it.item_trademark,itd.item_quantity from Items it, Itemdetails itd where it.item_id = " + itemId + ";";
+            reader = DBHelper.ExecQuery(query, DBHelper.OpenConnection());
             Shoes shoes = null;
             if (reader.Read())
             {
@@ -79,14 +81,14 @@ public List<Shoes> SearchShoesName()
         }
         public List<Shoes> SearchItem(int temp)
         {
-            
+
             switch (temp)
             {
                 case 1:
-                query = $@"select it.item_id,it.item_name,itd.item_size,it.item_price,it.item_color,it.item_material,it.item_brand,itd.item_quantity from Items it, Itemdetails itd where item_id = ";
-                break;
+                    query = $@"select it.item_id,it.item_name,itd.item_size,it.item_price,it.item_color,it.item_material,it.item_brand,itd.item_quantity from Items it, Itemdetails itd where item_id = ";
+                    break;
             }
-            reader = DBHelper.ExecQuery(query,DBHelper.OpenConnection());
+            reader = DBHelper.ExecQuery(query, DBHelper.OpenConnection());
             List<Shoes> shoes = new List<Shoes>();
             while (reader.Read())
             {
@@ -140,5 +142,5 @@ public List<Shoes> SearchShoesName()
 
 
     }
-    
+
 }

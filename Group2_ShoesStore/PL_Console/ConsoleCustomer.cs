@@ -19,13 +19,13 @@ namespace PL_Console
         private Order order = new Order();
         public void MenuCustomer(Customer cus)
         {
+
             customer = cus;
             while (true)
             {
                 OrderBL orderBL = new OrderBL();
                 string[] choice = {"Account Information", "List Shoes",
-                 $"View Cart ({orderBL.ShowShopingCartByUserId(customer.UserID).Count} product)",
-                 "Purchased List", "Exit"};
+                 "View Cart", "Exit"};
                 short choose = Utility.MenuTemplate("Menu", choice);
                 switch (choose)
                 {
@@ -38,9 +38,9 @@ namespace PL_Console
                     case 3:
                         ShopingCart();
                         continue;
-                    case 4:
-                        ShowOrder();
-                        continue;
+                    // case 4:
+                    //     ShowOrder();
+                    //     continue;
                 }
                 break;
 
@@ -57,10 +57,11 @@ namespace PL_Console
         }
         public void ShowlistItems()
         {
+
             Console.Clear();
             List<Shoes> shoes = null;
 
-            shoes = shoesBL.GetListShoes();
+            shoes = shoesBL.GetListShoes(1);
             if (shoes == null)
             {
                 Console.ReadKey();
@@ -71,8 +72,8 @@ namespace PL_Console
                 {
 
 
-                    int? idItem;
-                    string[] listcol = { "Select Product", "Search", "Back", "Select Page" };
+                    // int? idItem;
+                    string[] listcol = { "Select Product", "Search", "Enter Page", "Back" };
                     int choice = Utility.showListItems("List Shoes", listcol, shoes, customer.UserID);
                     switch (choice)
                     {
@@ -82,12 +83,19 @@ namespace PL_Console
                                 Console.WriteLine("No Shoes");
                                 Console.WriteLine("Press any key to display the shoe list");
                                 Console.ReadKey();
-                                shoes = shoesBL.GetListShoes();
+                                shoes = shoesBL.GetListShoes(1);
                             }
                             else
                             {
-                                idItem = Utility.SelectAnItem(shoes);
-                                ShowAnItem(idItem);
+                                
+                                var stringTest = Utility.SelectAnItem(shoes);
+                                string[] tokens = stringTest.Split(',');
+                                var id = Convert.ToInt32(tokens[1]);
+                                
+                                var amount = Convert.ToInt32(tokens[0]);
+                                
+                                
+                                ShowAnItem(id,amount);
                             }
                             continue;
                         case 2:
@@ -99,7 +107,10 @@ namespace PL_Console
                             continue;
 
                         case 3:
-                            break;
+                            Console.Write(" Enter Page:");
+                            var pageIndex = Convert.ToInt32(Console.ReadLine());
+                            shoes = shoesBL.GetListShoes(pageIndex);
+                            continue;
                         case 4:
                             break;
 
@@ -110,12 +121,13 @@ namespace PL_Console
 
 
         }
-        public void ShowAnItem(int? itemId)
+        public void ShowAnItem(int? itemId, int amount)
         {
             while (true)
             {
                 Console.Clear();
                 Console.Clear();
+                var shoeList = new List<Shoes>();
                 Shoes shoes = new Shoes();
                 shoes = shoesBL.GetShoesById(itemId);
                 var table = new ConsoleTable("Name:", Convert.ToString(shoes.ShoesName));
@@ -124,27 +136,22 @@ namespace PL_Console
                 table.AddRow("Color:", shoes.ShoesColor);
                 table.AddRow("Material:", shoes.ShoesMaterial);
                 table.AddRow("Brand:", shoes.ShoesBrand);
-                // table.AddRow("Quantity:", shoes.ShoesQuantity);
                 table.Write();
                 Console.WriteLine();
                 OrderBL orderBL = new OrderBL();
-                // if (shoes.ShoesId != orderBL.CheckItemPurchase(shoes.ShoesId, customer.UserID))
-                // {
                 string[] choice = { "Add To Cart", "Back" };
                 short choose = Utility.MenuDetail("Menu", choice);
                 switch (choose)
                 {
                     case 1:
-                        AddToCart(shoes);
-                        continue;
-                    case 2:
+                        AddToCart(shoes, amount);
+                        
                         break;
                 }
                 break;
             }
-
         }
-        public void AddToCart(Shoes shoes)
+        public void AddToCart(Shoes shoes, int amount)
         {
 
             OrderBL orderBL = new OrderBL();
@@ -153,15 +160,11 @@ namespace PL_Console
             order.ListShoes = new List<Shoes>();
             order.OrderUser.UserID = customer.UserID;
             order.OrderItem.ShoesId = shoes.ShoesId;
-
-            // user.UserShoppingCart == false : chưa có order
-            // user.UserShoppingCart == true : order thành công
-
             if (customerBL.GetCustomerByID(customer.UserID).UserShoppingCart)
             {
                 try
                 {
-                    if (orderBL.AddToShoppingcart(order))
+                    if (orderBL.AddToShoppingcart(order, amount))
                     {
                         Console.WriteLine("Add to cart successfully");
                     }
@@ -184,9 +187,8 @@ namespace PL_Console
                 order.OrderStatus = 0;
                 try
                 {
-                    if (orderBL.CreateShoppingCart(order))
+                    if (orderBL.CreateShoppingCart(order, amount))
                     {
-
                         Console.WriteLine("Add to cart successfully");
                     }
                 }
@@ -202,7 +204,6 @@ namespace PL_Console
         }
         public void DeleteItemFromSPC(Shoes shoes)
         {
-
             OrderBL orderBL = new OrderBL();
             if (orderBL.DeleteItemInShoppingCartByIdItem(shoes.ShoesId))
             {
@@ -238,17 +239,18 @@ namespace PL_Console
                 }
                 else
                 {
-                    Console.WriteLine($"You have {shoppingCart.Count} shoes in cart");
-                    var table = new ConsoleTable("Code", "Name", "Price");
+                    // Console.WriteLine($"You have {shoppingCart.Count} shoes in cart");
+                    var table = new ConsoleTable("ID", "NAME", "PRICE");
                     foreach (var item in shoppingCart)
                     {
                         total = total + (double)item.ShoesPrice;
                         table.AddRow(item.ShoesId, item.ShoesName, FormatCurrency(item.ShoesPrice));
                     }
                     table.AddRow("", "", "");
-                    table.AddRow("Total", "", FormatCurrency(total));
+                    table.AddRow("AMOUNT","", shoppingCart[0].aMount);
+                    table.AddRow("TOTAL", "", FormatCurrency(shoppingCart[0].toTal));
                     table.Write();
-                    Console.WriteLine("Total: {0}", FormatCurrency(total));
+                    // Console.WriteLine("Total: {0}", FormatCurrency(total));
 
                     Console.WriteLine();
                     string[] choice = { "Pay", "Delete Shoes from cart", "Back" };
@@ -264,8 +266,7 @@ namespace PL_Console
                             }
                             continue;
                         case 2:
-                            Console.Write("Enter Shoes' Code to delete: ");
-                            // int idItem = Int32.Parse(Console.ReadLine());  
+                            Console.Write("Enter Shoes' Id to delete: ");  
                             int idItem;
                             bool c = Int32.TryParse(Console.ReadLine(), out idItem);
                             if (!c)
@@ -307,6 +308,7 @@ namespace PL_Console
 
             }
         }
+       
         public void CreateOrder(double total)
         {
             order.OrderUser = new Customer();
@@ -319,22 +321,28 @@ namespace PL_Console
                     Console.Clear();
                     customerBL.UpdateStatusShoppingCartById(true, customer.UserID);
                     Console.WriteLine("Shoes Stores");
-                    // set userShopping cart to 0
                     List<Order> shoppingCart = new List<Order>();
                     shoppingCart = orderBL.ShowOrderUserPaySucess(customer.UserID);
                     Console.WriteLine("INVOICE");
                     Console.WriteLine("CUSTOMER'S NAME: {0}", shoppingCart[0].OrderUser.UserName);
                     Console.WriteLine("CUSTOMER'S EMAIL: {0}", shoppingCart[0].OrderUser.UserEmail);
-                    Console.WriteLine("CODE ORDERS: {0}", shoppingCart[0].OrderId);
-                    var table = new ConsoleTable("SHOES CODE", "SHOES NAME", " UNIT PRICE");
+                    Console.WriteLine("CODE ORDERS: {0}", shoppingCart[0].OrderId);                 
+                    var tables = new List<ConsoleTable>();
+                    var table = new ConsoleTable("ID", "NAME", "PRICE");
                     foreach (var item in shoppingCart)
                     {
                         table.AddRow(item.OrderItem.ShoesId, item.OrderItem.ShoesName, FormatCurrency(item.OrderItem.ShoesPrice));
+                        // tables.Add(table);
                     }
-                    table.AddRow("", "", "");
-                    table.AddRow("TOTAL AMOUNT", "", FormatCurrency(total));
+                    table.AddRow("", "", ""); 
+                    table.AddRow("AMOUNT", "", shoppingCart[0].Amount);
+                    table.AddRow("TOTAL AMOUNT", "", FormatCurrency(shoppingCart[0].Total));
                     table.AddRow("DATE", "", shoppingCart[0].OrderDate?.ToString("yyyy-MM-dd"));
-                    table.Write();
+                    tables.Add(table);
+                    foreach (var item in tables)
+                    {
+                        item.Write();
+                    }
                     Console.WriteLine("THANKS YOU");
                 }
                 else
